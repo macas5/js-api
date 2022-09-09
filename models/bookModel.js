@@ -15,11 +15,11 @@ const bookSchema = new mongoose.Schema ({
         required: true
     },
     isReadableOnline: {
-        type: boolean,
+        type: Boolean,
         required: true
     },
     description: String,
     condition: String
-});
+}, {timestamps: true});
 
 export default mongoose.model('book', bookSchema);

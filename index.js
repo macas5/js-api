@@ -2,15 +2,13 @@ import express from 'express';
 import dotenv from 'dotenv';
 import mongoose from "mongoose";
 
+import bookRoute from './routes/bookRoute.js'
+
 const app = express();
 const port = 3000;
 
 dotenv.config();
 app.use(express.json());
-
-app.get('/', (req, res) => {
-    res.send('Hello world!');
-});
 
 const connectToDb = async () => {
     try {
@@ -20,6 +18,8 @@ const connectToDb = async () => {
         console.error(error);
     }
 }
+
+app.use('/api', bookRoute);
 
 app.listen(port, () => {
     console.log(`Server started at port ${port}`);
