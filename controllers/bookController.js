@@ -6,6 +6,7 @@ export const createBook = async (req, res) => {
         await newBook.save();
         res.status(201).send('Book was created successfuly');
     } catch (error) {
+        console.log(error);
         res.status(400).send(error);
     }
 }
@@ -15,6 +16,17 @@ export const getAllBooks = async (req, res) => {
         const books = await bookModel.find();
         res.status(302).json(books);
     } catch (error) {
+        console.log(error);
+        res.status(404).send(error);
+    }
+}
+
+export const findBook = async (req, res) => {
+    try {
+        const books = await bookModel.find(req.body);
+        res.status(302).json(books);
+    } catch (error) {
+        console.log(error);
         res.status(404).send(error);
     }
 }
