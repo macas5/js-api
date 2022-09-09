@@ -19,7 +19,7 @@ const bookSchema = new mongoose.Schema ({
         required: true
     },
     description: String,
-    condition: String
+    bookCondition: String
 }, {timestamps: true});
 
 export default mongoose.model('book', bookSchema);
