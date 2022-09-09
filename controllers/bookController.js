@@ -61,3 +61,15 @@ export const deleteBookById = async (req, res) => {
     }
 }
 
+export const updateBookById = async (req, res) => {
+    try {
+        const updatedBook = await bookModel.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        }, {new: true});
+        res.status(202).json(updatedBook);
+    } catch (error) {
+        console.log(error);
+        res.status(304).send(error);
+    }
+}
+
