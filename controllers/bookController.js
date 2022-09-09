@@ -41,6 +41,16 @@ export const findBooksById = async (req, res) => {
     }
 }
 
+export const deleteBooks = async (req, res) => {
+    try {
+        await bookModel.deleteMany(req.body);
+        res.status(200).send(`Books with ${Object.keys(req.body)[0]}: ${Object.values(req.body)[0]} has been removed`);
+    } catch (error) {
+        console.log(error);
+        res.status(400).send(error);
+    }
+}
+
 export const deleteBookById = async (req, res) => {
     try {
         const book = await bookModel.findByIdAndDelete(req.params.id);
