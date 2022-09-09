@@ -61,6 +61,16 @@ export const deleteBookById = async (req, res) => {
     }
 }
 
+export const updateBooks = async (req, res) => {
+    try {
+        const updatedBooks = await bookModel.updateMany(req.body[0], {$set: req.body[1]})
+        res.status(202).json(updatedBooks);
+    } catch (error) {
+        console.error(error);
+        res.status(304).send(error);
+    }
+}
+
 export const updateBookById = async (req, res) => {
     try {
         const updatedBook = await bookModel.findByIdAndUpdate(req.params.id, {
@@ -72,4 +82,3 @@ export const updateBookById = async (req, res) => {
         res.status(304).send(error);
     }
 }
-
