@@ -1,5 +1,5 @@
 import express from "express";
-import { createBook, getAllBooks } from "../controllers/bookController.js";
+import { createBook, findBooksById, getAllBooks } from "../controllers/bookController.js";
 
 
 const router = express.Router();
@@ -7,5 +7,7 @@ const router = express.Router();
 router.post ('/createBook', createBook);
 
 router.get('/books', getAllBooks);
+
+router.get('/find/:id', findBooksById);
 
 export default router;
