@@ -33,7 +33,8 @@ export const deleteUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const user = await userModel.findByIdAndUpdate(req.params.id, { 
-            $set: req.body
+            $set: req.body,
+            ...!req.user.isAdmin ? {"isAdmin": false} : {}
         }, {new: true}
         );
         res.status(200).json(user);
