@@ -8,10 +8,14 @@ export const createUser = async (req, res) => {
         const hash = bcrypt.hashSync(req.body.password, salt);
         const newUser = new userModel({
             ... req.body,
-            password: hash
+            password: hash,
+            isAdmin: false
         });
         await newUser.save();
-        res.status(201).send('New User is created');
+        if (req.body.isAdmin) {
+            return res.status(201).send('New User is created without admin priviledges');
+        }
+        return res.status(201).send('New User is created');
     } catch (error) {
         res.status(405).send(error);
         console.error(error);
