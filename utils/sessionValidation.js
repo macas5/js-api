@@ -18,6 +18,14 @@ const sessionValidation = async (req, res, next) => {
 
     const user = await userModel.findById(req.user.id);
 
+    if (!user) {
+        return res.cookie('session_token', '', {
+            httpOnly: true
+        })
+        .status(401)
+        .send('Session expired, please log in again');
+    }
+
     if(user.terminateSession) {
         await userModel.updateOne({email: user.email}, {terminateSession: false});
         return res.cookie('session_token', '', {
