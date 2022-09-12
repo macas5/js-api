@@ -34,7 +34,9 @@ export const updateUser = async (req, res) => {
     try {
         const user = await userModel.findByIdAndUpdate(req.params.id, { 
             $set: req.body,
-            ...!req.user.isAdmin ? {"isAdmin": false} : {}
+            ...!req.user.isAdmin ? {"isAdmin": false} : {},
+            ...(Object.keys(req.body).includes("isAdmin") && (req.user.isAdmin)) ? 
+                {"terminateSession": true} : {}
         }, {new: true}
         );
         res.status(200).json(user);
