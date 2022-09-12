@@ -1,27 +1,32 @@
-import express from 'express';
-import dotenv from 'dotenv';
+import  express from "express";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
-import bookRoute from './routes/bookRoute.js'
+import userRoute from "./routes/userRoute.js"
+import authRoute from "./routes/authRoute.js";
+
 
 const app = express();
-const port = 3000;
+const port = 3002;
 
 dotenv.config();
 app.use(express.json());
+app.use(cookieParser());
 
-const connectToDb = async () => {
+const connectionToDb = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URL);
-        console.log('Connection to DB is successful');
+        await mongoose.connect(process.env.MONGO_URL);
+        console.log('Connection to mongoDB is successful');
     } catch (error) {
-        console.error(error);
+        console.log(error);
     }
-}
+};
 
-app.use('/api', bookRoute);
+app.use('/api', userRoute);
+app.use('/api', authRoute);
 
 app.listen(port, () => {
-    console.log(`Server started at port ${port}`);
-    connectToDb();
+    connectionToDb();
+    console.log(`Server started on port ${port}`);
 });
