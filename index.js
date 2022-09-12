@@ -8,15 +8,16 @@ import authRoute from "./routes/authRoute.js";
 
 
 const app = express();
-const port = 3002;
+const port = 3000;
 
 dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
+
 const connectionToDb = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URL);
+        await mongoose.connect(process.env.MONGODB_URL);
         console.log('Connection to mongoDB is successful');
     } catch (error) {
         console.log(error);
